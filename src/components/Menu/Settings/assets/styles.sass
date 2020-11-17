@@ -1,0 +1,50 @@
+@import 'src/assets/mixins.sass';
+@import 'src/assets/variables.sass';
+
+
+$formFieldHeight: 20px
+$formFieldLabelWidth: 120px
+$formButtonBorderSize: 2px
+
+
+.settings
+  &__legend 
+    font-size: 14px
+  
+  &__comment
+    font-size: 13px
+    margin-bottom: 10px
+
+
+  &__fieldset
+    margin-bottom: 10px
+
+.settings-form
+  &__field
+    display: flex
+    flex-direction: row
+    margin-bottom: 10px
+
+  &__field-label
+    flex-basis: $formFieldLabelWidth
+    font-size: 12px
+    line-height: $formFieldHeight
+ 
+  &__field-input
+    flex: 1
+    width: 100%
+    font-size: 14px
+    line-height: $formFieldHeight
+    height: $formFieldHeight
+
+  &__buttons
+    display: flex
+    justify-content: flex-end
+
+  &__button
+    @include borders($formButtonBorderSize, $borderPrimaryColor, $borderSecondaryColor)
+
+    margin-right: 5px
+
+    &:last-child
+      margin-right: 0

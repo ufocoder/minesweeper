@@ -1,0 +1,24 @@
+@import 'src/assets/mixins.sass';
+@import 'src/assets/variables.sass';
+
+$emojiSize: 40px
+$emojiBorderSize: 4px
+$emojiBackground: #c0c0c0x
+
+.emoji-status 
+  @include borders($emojiBorderSize, $borderPrimaryColor, $borderSecondaryColor)
+
+  background: $emojiBackground
+  height: $emojiSize
+  width: $emojiSize
+  padding: 4px
+
+  &__image
+    height: 100%
+    user-select: none
+
+  &:active
+    @include borders($emojiBorderSize, $borderSecondaryColor, $borderPrimaryColor)
+
+    .emoji-status__image
+      margin: 1px 0px 0px 1px

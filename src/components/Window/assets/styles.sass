@@ -1,0 +1,60 @@
+@import 'src/assets/mixins.sass';
+@import 'src/assets/variables.sass';
+
+$windowBorderSize: 2px
+$windowBackgroundColor: #b3b3b3
+
+$windowHeaderHeight: 20px
+$windowHeaderBackgroundColor: linear-gradient(90deg, navy, #1084d0)
+$windowHeaderFontColor: #ffffff
+$windowHeaderFontSize: 12px
+$windowMenuFontSize: 14px
+
+.window
+  @include borders($windowBorderSize, $borderPrimaryColor, $borderSecondaryColor)
+
+  display: flex
+  flex-direction: column
+  background: $windowBackgroundColor
+  user-select: none
+
+  &__header 
+    background: $windowHeaderBackgroundColor
+    color: $windowHeaderFontColor
+    padding: 3px 0px 3px 5px
+    height: $windowHeaderHeight
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  &__header-text
+    font-size: $windowHeaderFontSize
+    font-family: sans-serif
+
+  &__button-close
+    border: 0
+    background: silver
+    box-shadow: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px grey, inset 2px 2px #dfdfdf
+    background-image: url("./images/close.svg")
+    background-repeat: no-repeat
+    background-position: center center
+    height: $windowHeaderHeight
+    width: $windowHeaderHeight
+    float: right
+
+    &:focus
+      outline: none
+    
+    &__menu
+        display: flex
+        flex-direction: row
+
+  &__item
+    font-size: $windowMenuFontSize
+    margin-right: 5px
+ 
+    &:hover
+      cursor: pointer
+
+    &::first-letter
+      text-decoration: underline

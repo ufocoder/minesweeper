@@ -1,0 +1,89 @@
+@import 'src/assets/mixins.sass';
+@import 'src/assets/variables.sass';
+
+$boardBorderSize: 1px
+$boardBackground: #7b7b7b
+
+$cellSize: 27px
+$cellBorderSize: 3px
+$cellBackground: #bdbdbd
+$cellHoverBackground: #b1b1b1
+$cellFontSize: 12px
+
+$cellColorDigit1: #2000ff
+$cellColorDigit2: #057b03
+$cellColorDigit3: #ff0101
+$cellColorDigit4: #09007b
+$cellColorDigit5: #7b0100
+$cellColorDigit6: #057b7b
+$cellColorDigit7: #000000
+$cellColorDigit8: #7b7b7b
+
+.board
+  border-spacing: 0
+  border-collapse: separate
+  border: $boardBorderSize solid $boardBackground
+
+  &__cell
+    background: $cellBackground
+    width: $cellSize
+    height: $cellSize
+    min-width: $cellSize
+    min-height: $cellSize
+    line-height: $cellSize - ($cellBorderSize + $boardBorderSize) * 2
+    font-size: $cellFontSize
+    font-family: prstartk
+    text-align: center
+
+    &--visible
+      border: $boardBorderSize solid $boardBackground
+      border-top: 0
+      border-left: 0
+      padding-top: $cellBorderSize - $boardBorderSize
+      padding-left: $cellBorderSize - $boardBorderSize
+
+    &--bombed
+      background: url('./images/mine.svg') center center no-repeat
+      background-size: $cellSize * 3 / 4
+
+    &--marked
+      @include borders($cellBorderSize, $borderPrimaryColor, $borderSecondaryColor)
+
+      background: url('./images/flag.svg') center center no-repeat 
+      background-size: $cellSize * 1 / 2
+
+      &:hover
+        cursor: pointer
+
+    &--hidden
+      @include borders($cellBorderSize, $borderPrimaryColor, $borderSecondaryColor)
+
+      &:hover
+        background: $cellHoverBackground
+        cursor: pointer
+
+    &--digit-1
+      color: $cellColorDigit1
+
+    &--digit-2
+      color: $cellColorDigit2
+
+    &--digit-3
+      color: $cellColorDigit3
+
+    &--digit-4
+      color: $cellColorDigit4
+
+    &--digit-5
+      color: $cellColorDigit5
+
+    &--digit-6
+      color: $cellColorDigit6
+
+    &--digit-7
+      color: $cellColorDigit7
+
+    &--digit-8
+      color: $cellColorDigit8
+
+    

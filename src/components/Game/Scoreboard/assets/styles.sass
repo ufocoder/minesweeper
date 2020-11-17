@@ -1,0 +1,31 @@
+@import 'src/assets/mixins.sass';
+@import 'src/assets/variables.sass';
+
+$scoreBorderSize: 1px
+$scoreHeight: 50px
+$scoreFontColor: #ff0101
+$scoreShadowColor: #510402
+
+.scoreboard
+  @include borders($scoreBorderSize, $borderPrimaryColor, $borderPrimaryColor)
+
+  background: #010000
+  font-family: Digital Dismay
+  font-size: $scoreHeight
+  line-height: $scoreHeight
+  color: $scoreFontColor
+  position: relative
+  height: $scoreHeight
+  width: $scoreHeight * 1.5
+  text-align: right
+  z-index: 1
+
+  &::after
+    position: absolute
+    text-align: right
+    right: 0
+    top: 0
+    width: 100%
+    color: $scoreShadowColor
+    z-index: -1
+    content: "888"

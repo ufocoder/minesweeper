@@ -1,0 +1,24 @@
+
+$modalOverlayBackgroundColor: rgba(0, 0, 0, .45)
+
+.modal
+  position: absolute
+  display: flex
+  width: 100vw
+  height: 100vh
+  align-items: center
+  justify-content: center
+  left: 0
+  top: 0
+  z-index: 9
+  
+  &__overlay
+    position: absolute
+    background: $modalOverlayBackgroundColor
+    top: 0
+    left: 0
+    width: 100%
+    height: 100%
+
+  &__content
+    z-index: 10

@@ -1,0 +1,21 @@
+@import 'src/assets/mixins.sass';
+@import 'src/assets/variables.sass';
+
+$gameBorderSize: 2px
+$gameBackground: #b3b3b3
+
+.game
+  @include borders($gameBorderSize, $borderPrimaryColor, $borderSecondaryColor)
+
+  display: flex
+  flex-direction: column
+  background: $gameBackground
+  user-select: none
+
+  &__header
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    padding: 4px
+    margin-bottom: 7px
