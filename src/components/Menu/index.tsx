@@ -5,7 +5,7 @@ import Modal from 'src/components/Modal';
 import Help from 'src/components/Menu/Help';
 import Settings from 'src/components/Menu/Settings';
 import Window from 'src/components/Window';
-import presets from 'src/lib/presets.json';
+import presets from 'src/context/lib/presets.json';
 
 import './assets/styles.sass';
 

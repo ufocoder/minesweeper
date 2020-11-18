@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useState } from 'react';
 
-import presets from 'src/lib/presets.json';
+import presets from 'src/context/lib/presets.json';
 import './assets/styles.sass';
 
 interface Values {

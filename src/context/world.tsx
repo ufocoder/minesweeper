@@ -1,7 +1,7 @@
 import React, { FC, createContext, useContext, useReducer } from 'react';
 
-import presets from 'src/lib/presets.json';
-import { createWorld, markBoardCell, openBoardCell, resetWorld, touchWorld, untouchWorld } from 'src/lib/game';
+import presets from 'src/context/lib/presets.json';
+import { createWorld, markBoardCell, openBoardCell, resetWorld, touchWorld, untouchWorld } from 'src/context/lib/game';
 
 import { World, Preset, Position } from 'src/types';
 
