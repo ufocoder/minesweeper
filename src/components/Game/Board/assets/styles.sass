@@ -24,6 +24,16 @@ $cellColorDigit8: #7b7b7b
   border-collapse: separate
   border: $boardBorderSize solid $boardBackground
 
+  &--active
+    .board__cell--hidden
+      &:hover
+        background: $cellHoverBackground
+        cursor: pointer
+
+    .board__cell--marked
+      &:hover
+        cursor: pointer
+
   &__cell
     background: $cellBackground
     width: $cellSize
@@ -52,15 +62,8 @@ $cellColorDigit8: #7b7b7b
       background: url('./images/flag.svg') center center no-repeat 
       background-size: $cellSize * 1 / 2
 
-      &:hover
-        cursor: pointer
-
     &--hidden
       @include borders($cellBorderSize, $borderPrimaryColor, $borderSecondaryColor)
-
-      &:hover
-        background: $cellHoverBackground
-        cursor: pointer
 
     &--digit-1
       color: $cellColorDigit1
