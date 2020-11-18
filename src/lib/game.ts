@@ -7,6 +7,7 @@ const isCellExists = (x: number, y: number, world: World): boolean => Boolean(wo
 
 export const createWorld = (preset: Preset): World => ({
     preset,
+    tries: 0,
     marked: 0,
     hidden: preset.rows * preset.cols,
     status: Status.alive,
@@ -107,7 +108,7 @@ export const openCell = ({ x, y }: Position) => (world: World): World =>
             return;
         }
 
-        if (drafCell.content === Content.bombed) {
+        if (drafCell.content === Content.bombed && world.tries > 0) {
             draftWorld.status = Status.dead;
 
             draftWorld.board.forEach((row) =>
@@ -121,7 +122,12 @@ export const openCell = ({ x, y }: Position) => (world: World): World =>
             return;
         }
 
+        if (drafCell.content === Content.bombed) {
+            draftWorld.board = createBoard(world.preset, { x, y });
+        }
+
         revealNeighbors(x, y, draftWorld);
 
+        draftWorld.tries += 1;
         draftWorld.status = draftWorld.hidden === world.preset.mines ? Status.win : Status.alive;
     });

@@ -43,7 +43,8 @@ export type Board = Cell[][];
 export type World = {
     marked: number;
     hidden: number;
-    preset: Preset;
+    tries: number;
+    readonly preset: Preset;
     board: Cell[][];
     status: Status;
 };

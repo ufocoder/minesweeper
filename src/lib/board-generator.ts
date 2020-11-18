@@ -1,11 +1,18 @@
-import { Board, Content, Visibility, Preset } from 'src/types';
+import { Board, Content, Visibility, Preset, Position } from 'src/types';
 
-const createRandomNumbers = (max: number, limit: number) => {
+const createRandomNumberSet = (max: number, limit: number, exclude?: number) => {
     const numbers = Array.from(Array(max)).map((_, key) => key);
 
     for (let i = numbers.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+    }
+
+    if (exclude) {
+        const index = numbers.indexOf(exclude);
+        if (index !== -1) {
+            numbers.splice(index, 1);
+        }
     }
 
     return new Set(numbers.splice(0, limit));
@@ -32,8 +39,11 @@ const calculateDigits = (x: number, y: number, board: Board) => {
     }, 0);
 };
 
-export const createBoard = ({ rows, cols, mines }: Preset): Board => {
-    const bombedNumbers = createRandomNumbers(rows * cols, mines);
+export const createBoard = ({ rows, cols, mines }: Preset, position?: Position): Board => {
+    const bombedNumbers = position
+        ? createRandomNumberSet(rows * cols, mines, rows * position.y + position.x)
+        : createRandomNumberSet(rows * cols, mines);
+
     const board = Array.from(Array(rows), (_, y) =>
         Array.from(Array(cols)).map((_, x) => {
             return {
