@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import classNames from 'classnames';
 
 import { useBoard, UseBoardProps } from './hooks';
-import { Cell, Content, Visibility } from 'src/types';
+import { Cell, Content, Status, Visibility } from 'src/types';
 
 import './assets/styles.sass';
 
@@ -32,24 +32,38 @@ const BroardCell: FC<BroardCellProps> = React.memo(({ x, y, cell }) => {
     );
 });
 
+interface BroardRowProps {
+    row: Cell[];
+    y: number;
+}
+
+const BoardRow: FC<BroardRowProps> = React.memo(({ row, y }) => (
+    <tr className='board__row'>
+        {row.map((cell, x) => (
+            <BroardCell key={x} x={x} y={y} cell={cell} />
+        ))}
+    </tr>
+));
+
 export type BoardProps = {
     board: Cell[][];
+    status: Status;
 } & UseBoardProps;
 
 const Board: FC<BoardProps> = (props) => {
-    const { board, ...restProps } = props;
+    const { board, status, ...restProps } = props;
 
-    useBoard({ ...restProps });
+    useBoard({ ...restProps, status });
 
     return (
-        <table className='board'>
+        <table
+            className={classNames('board', {
+                'board--active': status === Status.touch || status === Status.alive,
+            })}
+        >
             <tbody>
                 {board.map((row, y) => (
-                    <tr className='board__row' key={y}>
-                        {row.map((cell, x) => (
-                            <BroardCell key={`${y}-${x}`} x={x} y={y} cell={cell} />
-                        ))}
-                    </tr>
+                    <BoardRow key={y} row={row} y={y} />
                 ))}
             </tbody>
         </table>
