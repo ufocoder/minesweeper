@@ -13,21 +13,28 @@ export const createWorld = (preset: Preset): World => ({
     board: createBoard(preset),
 });
 
-export const resetWorld = (world: World): World =>
-    createWorld(world.preset);
+export const resetWorld = (world: World): World => createWorld(world.preset);
 
 export const touchWorld = (world: World): World =>
     produce(world, (draftWorld) => {
-        draftWorld.status = Status.touch;
+        if (draftWorld.status === Status.alive) {
+            draftWorld.status = Status.touch;
+        }
     });
 
 export const untouchWorld = (world: World): World =>
     produce(world, (draftWorld) => {
-        draftWorld.status = Status.alive;
+        if (draftWorld.status === Status.touch) {
+            draftWorld.status = Status.alive;
+        }
     });
 
 export const markCell = ({ x, y }: Position) => (world: World): World =>
     produce(world, (draftWorld) => {
+        if (world.status !== Status.alive) {
+            return;
+        }
+
         if (!isCellExists(x, y, world)) {
             return;
         }
@@ -86,7 +93,15 @@ const revealNeighbors = (x: number, y: number, world: World) => {
 
 export const openCell = ({ x, y }: Position) => (world: World): World =>
     produce(world, (draftWorld) => {
+        if (world.status !== Status.alive) {
+            return;
+        }
+
         const drafCell = draftWorld.board[y][x];
+
+        if (draftWorld.status === Status.dead || draftWorld.status === Status.win) {
+            return;
+        }
 
         if (drafCell.visibility === Visibility.visible) {
             return;
