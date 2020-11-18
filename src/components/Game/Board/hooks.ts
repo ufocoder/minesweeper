@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Position } from 'src/types';
+import { Position, Status } from 'src/types';
 
 const MOUSE_LEFT_BUTTON = 0;
 const MOUSE_RIGHT_BUTTON = 2;
@@ -12,13 +12,14 @@ const extractPosition = (element: HTMLElement) => ({
 });
 
 export type UseBoardProps = {
+    status: Status;
     onBoardUntouch: () => void;
     onBoardTouch: () => void;
     onCellMark: (position: Position) => void;
     onCellOpen: (position: Position) => void;
 };
 
-export const useBoard = ({ onBoardUntouch, onBoardTouch, onCellMark, onCellOpen }: UseBoardProps) => {
+export const useBoard = ({ status, onBoardUntouch, onBoardTouch, onCellMark, onCellOpen }: UseBoardProps) => {
     useEffect(() => {
         const handler = window.oncontextmenu;
 
@@ -33,6 +34,10 @@ export const useBoard = ({ onBoardUntouch, onBoardTouch, onCellMark, onCellOpen 
         const handleDocumentMouseDown = (e: MouseEvent) => {
             const element = e.target as HTMLElement;
 
+            if (status !== Status.alive) {
+                return;
+            }
+
             if (isСellularElement(element)) {
                 onBoardTouch();
             }
@@ -43,11 +48,15 @@ export const useBoard = ({ onBoardUntouch, onBoardTouch, onCellMark, onCellOpen 
         return () => {
             document.removeEventListener('mousedown', handleDocumentMouseDown);
         };
-    }, [onBoardTouch]);
+    }, [status, onBoardTouch]);
 
     useEffect(() => {
         const handleDocumentMouseUp = (e: MouseEvent) => {
             const element = e.target as HTMLElement;
+
+            if (status !== Status.touch) {
+                return;
+            }
 
             onBoardUntouch();
 
@@ -71,5 +80,5 @@ export const useBoard = ({ onBoardUntouch, onBoardTouch, onCellMark, onCellOpen 
         return () => {
             document.removeEventListener('mouseup', handleDocumentMouseUp);
         };
-    }, [onCellMark, onCellOpen, onBoardUntouch]);
+    }, [status, onCellMark, onCellOpen, onBoardUntouch]);
 };

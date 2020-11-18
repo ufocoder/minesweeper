@@ -13,7 +13,7 @@ import './assets/styles.sass';
 type GameProps = {
     world: World;
     onEmojiClick: () => void;
-} & UseBoardProps;
+} & Omit<UseBoardProps, 'status'>;
 
 const Game: FC<GameProps> = (props) => {
     const { world, onEmojiClick, ...restProps } = props;
@@ -33,7 +33,7 @@ const Game: FC<GameProps> = (props) => {
             </div>
 
             <div className='game__content'>
-                <Board board={board} {...restProps} />
+                <Board status={status} board={board} {...restProps} />
             </div>
         </div>
     );
