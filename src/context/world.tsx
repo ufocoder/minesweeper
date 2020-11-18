@@ -1,9 +1,8 @@
 import React, { FC, createContext, useContext, useReducer } from 'react';
+import { createWorld, markBoardCell, openBoardCell, resetWorld, touchWorld, untouchWorld } from 'src/context/lib/game';
+import { World, Preset, Position } from 'src/types';
 
 import presets from 'src/context/lib/presets.json';
-import { createWorld, markBoardCell, openBoardCell, resetWorld, touchWorld, untouchWorld } from 'src/context/lib/game';
-
-import { World, Preset, Position } from 'src/types';
 
 const WorldStateContext = createContext<World | undefined>(undefined);
 const WorldDispatchContext = createContext<Dispatch | undefined>(undefined);
