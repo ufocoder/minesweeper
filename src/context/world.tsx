@@ -5,10 +5,8 @@ import { createWorld, markBoardCell, openBoardCell, resetWorld, touchWorld, unto
 
 import { World, Preset, Position } from 'src/types';
 
-const WorldStateContext = createContext<State | undefined>(undefined);
+const WorldStateContext = createContext<World | undefined>(undefined);
 const WorldDispatchContext = createContext<Dispatch | undefined>(undefined);
-
-type State = World;
 
 type Action =
     | { type: 'createWorld'; payload: { preset: Preset } }
@@ -20,7 +18,7 @@ type Action =
 
 type Dispatch = (action: Action) => void;
 
-function worldReducer(state: State, action: Action) {
+function worldReducer(state: World, action: Action) {
     switch (action.type) {
         case 'createWorld':
             return createWorld(action.payload.preset);
