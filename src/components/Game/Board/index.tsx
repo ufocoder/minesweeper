@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import classNames from 'classnames';
 
-import { useBoard, UseBoardProps } from './hooks';
+import { useWorldState } from 'src/context/world';
+import { useBoard } from './hooks';
 import { Cell, Content, Status, Visibility } from 'src/types';
 
 import './assets/styles.sass';
@@ -45,15 +46,10 @@ const BoardRow: FC<BroardRowProps> = React.memo(({ row, y }) => (
     </tr>
 ));
 
-export type BoardProps = {
-    board: Cell[][];
-    status: Status;
-} & UseBoardProps;
+const Board = () => {
+    const { board, status } = useWorldState();
 
-const Board: FC<BoardProps> = (props) => {
-    const { board, status, ...restProps } = props;
-
-    useBoard({ ...restProps, status });
+    useBoard();
 
     return (
         <table

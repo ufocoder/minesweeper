@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useWorldDispatch, useWorldState } from 'src/context/world';
 import { Position, Status } from 'src/types';
 
 const MOUSE_LEFT_BUTTON = 0;
@@ -19,7 +20,10 @@ export type UseBoardProps = {
     onCellOpen: (position: Position) => void;
 };
 
-export const useBoard = ({ status, onBoardUntouch, onBoardTouch, onCellMark, onCellOpen }: UseBoardProps) => {
+export const useBoard = () => {
+    const { status } = useWorldState();
+    const { touchBoard, untouchBoard, openBoardCell, markBoardCell } = useWorldDispatch();
+
     useEffect(() => {
         const handler = window.oncontextmenu;
 
@@ -39,7 +43,7 @@ export const useBoard = ({ status, onBoardUntouch, onBoardTouch, onCellMark, onC
             }
 
             if (isСellularElement(element)) {
-                onBoardTouch();
+                touchBoard();
             }
         };
 
@@ -48,7 +52,7 @@ export const useBoard = ({ status, onBoardUntouch, onBoardTouch, onCellMark, onC
         return () => {
             document.removeEventListener('mousedown', handleDocumentMouseDown);
         };
-    }, [status, onBoardTouch]);
+    }, [status, touchBoard]);
 
     useEffect(() => {
         const handleDocumentMouseUp = (e: MouseEvent) => {
@@ -58,18 +62,18 @@ export const useBoard = ({ status, onBoardUntouch, onBoardTouch, onCellMark, onC
                 return;
             }
 
-            onBoardUntouch();
+            untouchBoard();
 
             if (isСellularElement(element)) {
                 const position = extractPosition(element);
 
                 if (e.button === MOUSE_RIGHT_BUTTON) {
-                    onCellMark(position);
+                    markBoardCell(position);
                     return;
                 }
 
                 if (e.button === MOUSE_LEFT_BUTTON) {
-                    onCellOpen(position);
+                    openBoardCell(position);
                     return;
                 }
             }
@@ -80,5 +84,5 @@ export const useBoard = ({ status, onBoardUntouch, onBoardTouch, onCellMark, onC
         return () => {
             document.removeEventListener('mouseup', handleDocumentMouseUp);
         };
-    }, [status, onCellMark, onCellOpen, onBoardUntouch]);
+    }, [status, markBoardCell, openBoardCell, untouchBoard]);
 };

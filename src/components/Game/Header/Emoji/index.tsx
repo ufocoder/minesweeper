@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import { Status } from 'src/types';
 
@@ -20,10 +20,12 @@ const emojiSrc: EmojiSrc = {
     win: require('./assets/images/cool.png').default,
 };
 
-const EmojiStatus: FC<StatusProps> = ({ status, onClick }) => (
-    <div className='emoji-status' onClick={onClick}>
-        <img className='emoji-status__image' src={emojiSrc[status]} alt={`You are ${status}`} />
-    </div>
-);
+const EmojiStatus = ({ status, onClick }: StatusProps) => {
+    return (
+        <div className='emoji-status' onClick={onClick}>
+            <img className='emoji-status__image' src={emojiSrc[status]} alt={`You are ${status}`} />
+        </div>
+    );
+};
 
 export default EmojiStatus;

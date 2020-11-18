@@ -1,22 +1,18 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
+import { useWorldDispatch } from 'src/context/world';
 import Modal from 'src/components/Modal';
 import Help from 'src/components/Menu/Help';
 import Settings from 'src/components/Menu/Settings';
 import Window from 'src/components/Window';
-
 import presets from 'src/lib/presets.json';
-import { Preset } from 'src/types';
 
 import './assets/styles.sass';
 
-interface MenuProps {
-    onSettingsSubmit: (preset: Preset) => void;
-}
-
-const Menu: FC<MenuProps> = ({ onSettingsSubmit }) => {
+const Menu = () => {
     const [showSettingsModal, setShowSettingsModal] = useState<boolean>(false);
     const [showHelpModal, setShowHelpModal] = useState<boolean>(false);
+    const { createWorld } = useWorldDispatch();
 
     return (
         <>
@@ -34,9 +30,9 @@ const Menu: FC<MenuProps> = ({ onSettingsSubmit }) => {
                     <Window title='Setting' style={{ padding: '10px' }} onClose={() => setShowSettingsModal(false)}>
                         <Settings
                             values={presets.easy}
-                            onSubmit={(formValues) => {
+                            onSubmit={(preset) => {
                                 setShowSettingsModal(false);
-                                onSettingsSubmit(formValues);
+                                createWorld(preset);
                             }}
                             onCancel={() => setShowSettingsModal(false)}
                         />

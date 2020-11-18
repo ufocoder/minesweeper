@@ -15,8 +15,9 @@ describe('Game lib', () => {
 
     test('Method `touchWorld`', () => {
         const world = game.createWorld(preset);
+        const touchedWorld = game.touchWorld(world);
 
-        expect(game.touchWorld(world).status).toEqual(Status.touch);
+        expect(touchedWorld.status).toEqual(Status.touch);
     });
 
     test('Method `untouchWorld`', () => {
@@ -24,6 +25,6 @@ describe('Game lib', () => {
 
         world.status = Status.touch;
 
-        expect(game.untouchWorld(world).status).toEqual(Status.alive);
+        expect(world).toEqual(Status.alive);
     });
 });
