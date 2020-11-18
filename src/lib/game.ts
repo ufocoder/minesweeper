@@ -30,7 +30,7 @@ export const untouchWorld = (world: World): World =>
         }
     });
 
-export const markCell = ({ x, y }: Position) => (world: World): World =>
+export const markBoardCell = (world: World, { x, y }: Position): World =>
     produce(world, (draftWorld) => {
         if (world.status !== Status.alive) {
             return;
@@ -92,7 +92,7 @@ const revealNeighbors = (x: number, y: number, world: World) => {
     }
 };
 
-export const openCell = ({ x, y }: Position) => (world: World): World =>
+export const openBoardCell = (world: World, { x, y }: Position): World =>
     produce(world, (draftWorld) => {
         if (world.status !== Status.alive) {
             return;
