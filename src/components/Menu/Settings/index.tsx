@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import presets from 'src/context/lib/presets.json';
 import './assets/styles.sass';
@@ -20,7 +20,7 @@ const MAX_COLS = 100;
 
 const MAX_LENGTH = 3;
 
-const Field: FC<FieldProps> = ({ label, value, onChange }) => {
+const Field = ({ label, value, onChange }: FieldProps) => {
     return (
         <label className='settings-form__field'>
             <div className='settings-form__field-label'>{label}</div>

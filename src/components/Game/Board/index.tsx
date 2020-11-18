@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 
 import { useWorldState } from 'src/context/world';
@@ -13,7 +13,7 @@ interface BroardCellProps {
     cell: Cell;
 }
 
-const BroardCell: FC<BroardCellProps> = React.memo(({ x, y, cell }) => {
+const BroardCell = React.memo(({ x, y, cell }: BroardCellProps) => {
     return (
         <td
             data-cell
@@ -38,7 +38,7 @@ interface BroardRowProps {
     y: number;
 }
 
-const BoardRow: FC<BroardRowProps> = React.memo(({ row, y }) => (
+const BoardRow = React.memo(({ row, y }: BroardRowProps) => (
     <tr className='board__row'>
         {row.map((cell, x) => (
             <BroardCell key={x} x={x} y={y} cell={cell} />

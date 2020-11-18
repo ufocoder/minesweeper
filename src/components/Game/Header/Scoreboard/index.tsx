@@ -1,10 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './assets/styles.sass';
 
 interface ScoreboardProps {
     score: number;
 }
 
-const Scoreboard: FC<ScoreboardProps> = ({ score }) => <div className='scoreboard'>{score}</div>;
+const Scoreboard = ({ score }: ScoreboardProps) => <div className='scoreboard'>{score}</div>;
 
 export default Scoreboard;
