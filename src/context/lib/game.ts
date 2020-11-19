@@ -79,10 +79,14 @@ const revealNeighbors = (x: number, y: number, world: World) => {
 
     if (cell.content === Content.blank) {
         const neighborsPositions = [
+            [y - 1, x - 1],
             [y - 1, x],
+            [y - 1, x + 1],
             [y, x - 1],
             [y, x + 1],
+            [y + 1, x - 1],
             [y + 1, x],
+            [y + 1, x + 1],
         ];
 
         cell.visibility = Visibility.visible;
@@ -110,6 +114,7 @@ export const openBoardCell = (world: World, { x, y }: Position): World =>
 
         if (drafCell.content === Content.bombed && world.tries > 0) {
             draftWorld.status = Status.dead;
+            draftWorld.tries += 1;
 
             draftWorld.board.forEach((row) =>
                 row.forEach((cell) => {
