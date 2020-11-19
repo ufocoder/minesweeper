@@ -8,7 +8,7 @@ const createRandomNumberSet = (max: number, limit: number, exclude?: number) => 
         [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
     }
 
-    if (exclude) {
+    if (exclude !== undefined) {
         const index = numbers.indexOf(exclude);
         if (index !== -1) {
             numbers.splice(index, 1);
