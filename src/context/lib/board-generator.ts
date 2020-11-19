@@ -41,7 +41,7 @@ const calculateDigits = (x: number, y: number, board: Board) => {
 
 export const createBoard = ({ rows, cols, mines }: Preset, position?: Position): Board => {
     const bombedNumbers = position
-        ? createRandomNumberSet(rows * cols, mines, rows * position.y + position.x)
+        ? createRandomNumberSet(rows * cols, mines, cols * position.y + position.x)
         : createRandomNumberSet(rows * cols, mines);
 
     const board = Array.from(Array(rows), (_, y) =>
