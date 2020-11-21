@@ -1,4 +1,5 @@
 # Minesweeper
+[![Build Status](https://travis-ci.org/ufocoder/minesweeper.svg?branch=master)](https://travis-ci.org/ufocoder/minesweeper)
 
 A minesweeper game. React application with render optimizations.
 Build with [Create React App](https://github.com/facebook/create-react-app), [Typescript](https://www.typescriptlang.org/), [Sass](https://sass-lang.com/). 
