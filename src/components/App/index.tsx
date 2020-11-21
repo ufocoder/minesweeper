@@ -8,13 +8,15 @@ import './assets/styles.sass';
 
 const App = () => {
     return (
-        <div className='app'>
-            <Window title='Minesweeper'>
-                <WorldProvider>
-                    <Menu />
-                    <Game />
-                </WorldProvider>
-            </Window>
+        <div className='wrapper'>
+            <div className='app'>
+                <Window title='Minesweeper'>
+                    <WorldProvider>
+                        <Menu />
+                        <Game />
+                    </WorldProvider>
+                </Window>
+            </div>
         </div>
     );
 };
