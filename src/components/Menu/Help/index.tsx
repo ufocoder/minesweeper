@@ -11,6 +11,11 @@ const Help = () => {
                     Read on wikipedia
                 </a>
             </p>
+            <p>
+                <a className='about__link' href='https://github.com/ufocoder/minesweeper'>
+                    Sources
+                </a>
+            </p>
         </div>
     );
 };
