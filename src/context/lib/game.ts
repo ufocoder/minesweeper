@@ -61,38 +61,49 @@ export const markBoardCell = (world: World, { x, y }: Position): World =>
         }
     });
 
+const getNeigborsPositions = (x: number, y: number): [number, number][] => [
+    [y - 1, x - 1],
+    [y - 1, x],
+    [y - 1, x + 1],
+    [y, x - 1],
+    [y, x + 1],
+    [y + 1, x - 1],
+    [y + 1, x],
+    [y + 1, x + 1],
+];
+
 const revealNeighbors = (x: number, y: number, world: World) => {
-    if (!isCellExists(x, y, world)) {
-        return;
-    }
+    let queuePositions: [number, number][] = [[x, y]];
 
-    const cell = world.board[y][x];
+    while (queuePositions.length > 0) {
+        const position = queuePositions.shift();
 
-    if (cell.visibility === Visibility.visible || cell.visibility === Visibility.marked) {
-        return;
-    }
+        if (!position) {
+            continue;
+        }
 
-    if (cell.content === Content.digit) {
-        cell.visibility = Visibility.visible;
-        world.hidden -= 1;
-    }
+        if (!isCellExists(position[0], position[1], world)) {
+            continue;
+        }
 
-    if (cell.content === Content.blank) {
-        const neighborsPositions = [
-            [y - 1, x - 1],
-            [y - 1, x],
-            [y - 1, x + 1],
-            [y, x - 1],
-            [y, x + 1],
-            [y + 1, x - 1],
-            [y + 1, x],
-            [y + 1, x + 1],
-        ];
+        const cell = world.board[position[1]][position[0]];
 
-        cell.visibility = Visibility.visible;
-        world.hidden -= 1;
+        if (cell.visibility === Visibility.visible || cell.visibility === Visibility.marked) {
+            continue;
+        }
 
-        neighborsPositions.forEach(([y, x]) => revealNeighbors(x, y, world));
+        if (cell.content === Content.digit) {
+            cell.visibility = Visibility.visible;
+
+            world.hidden -= 1;
+        }
+
+        if (cell.content === Content.blank) {
+            cell.visibility = Visibility.visible;
+            world.hidden -= 1;
+
+            queuePositions = queuePositions.concat(getNeigborsPositions(position[1], position[0]));
+        }
     }
 };
 
