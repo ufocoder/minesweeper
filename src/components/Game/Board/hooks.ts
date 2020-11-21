@@ -27,12 +27,17 @@ export const useBoard = () => {
     useEffect(() => {
         const handler = window.oncontextmenu;
 
-        window.oncontextmenu = () => false;
+        window.oncontextmenu = (e: MouseEvent) => {
+            const element = e.target as HTMLElement;
+            if (isСellularElement(element)) {
+                return false;
+            }
+        };
 
         return () => {
             window.oncontextmenu = handler;
         };
-    });
+    }, []);
 
     useEffect(() => {
         const handleDocumentMouseDown = (e: MouseEvent) => {
