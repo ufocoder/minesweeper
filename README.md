@@ -1,7 +1,7 @@
 # Minesweeper
 
-A minesweeper game. Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+A minesweeper game. React application with render optimizations.
+Build with [Create React App](https://github.com/facebook/create-react-app), [Typescript](https://www.typescriptlang.org/), [Sass](https://sass-lang.com/). 
 
 ## How to run locally
 
