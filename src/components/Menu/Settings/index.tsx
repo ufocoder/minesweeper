@@ -43,8 +43,8 @@ interface SettingsProps {
 
 const FormSettings = ({ values, onCancel, onSubmit }: SettingsProps) => {
     const [formValues, setFormValues] = useState<Values>({ ...values });
-    const maxMines = formValues.rows * formValues.cols - 1;
-    const canBeSubmitted = maxMines > 0;
+    const maxMines = Math.max(formValues.rows * formValues.cols - 1, 0);
+    const canBeSubmitted = formValues.mines > 0;
 
     const handleFormSubmit = useCallback(
         (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,6 +67,10 @@ const FormSettings = ({ values, onCancel, onSubmit }: SettingsProps) => {
             ...formValues,
             [fieldName]: Math.max(Math.min(parseInt(fieldValue, 10) || 0, limit), 0),
         };
+
+        if (maxMines > newFormValues.rows * newFormValues.cols - 1) {
+            newFormValues.mines = Math.max(newFormValues.rows * newFormValues.cols - 1, 0);
+        }
 
         setFormValues(newFormValues);
     };
